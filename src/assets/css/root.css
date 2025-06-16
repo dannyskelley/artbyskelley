@@ -24,7 +24,7 @@
     --navLink:rgba(0, 0, 0, 0.6);
     --navLinkActive: rgba(0, 0, 0, 0.6);
     /* 13px - 16px */
-    --topperFontSize: clamp(2rem, 1.1vw, 3rem);
+    --topperFontSize: clamp(1.5rem, 2.1vw, 3rem);
     /* 31px - 49px */
     --headerFontSize: clamp(2.5375rem, 3.9vw, 4.0625rem);
     --bodyFontSize: 1.4rem;
