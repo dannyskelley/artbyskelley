@@ -42,9 +42,9 @@
   }
   #cs-footer-1763 .cs-picture {
     padding: 1.5rem;
-    background-color:#1763C2;
+    background-color:var(--primary);
     display: block;
-    border-radius: 5px;
+    border-radius: 995px;
   }
   #cs-footer-1763 .cs-icon {
     width: 2rem;
@@ -125,6 +125,7 @@
     color: var(--headerColor);
     display: block;
     position: relative;
+    font-family: "Tenor Sans";
   }
   #cs-footer-1763 .cs-ul {
     margin: 0;
@@ -301,10 +302,7 @@
                 <h3 class="cs-h3">Location</h3>
                 <span class="cs-card-info">
                     
-                    {{client.address.lineOne}}<BR>
-                    {{client.address.city}}
-                    {{client.address.state}}<BR>
-                    {{client.address.zip}}
+                   14350 Eureka, Southgate, MI
                 </span>
             </div>
         </div>
@@ -313,10 +311,10 @@
                 <img class="cs-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/gym-footer-clock.svg" alt="clock" loading="lazy" decoding="async" height="32" width="32">
             </picture>
             <div class="cs-flex">
-                <h3 class="cs-h3">24 Hour Check In</h3>
-                <span class="cs-card-info">Check In Time: 3:00 PM
+                <h3 class="cs-h3">Available 24/7</h3>
+                <span class="cs-card-info">Client satisfaction over everything.
                   </span>
-                <span class="cs-card-info">Check Out Time: 11:00 AM </span>
+               
             </div>
         </div>
         <div class="cs-card">
@@ -325,7 +323,7 @@
             </picture>
             <div class="cs-flex">
                 <h3 class="cs-h3">Contact Us</h3>
-                <a href="tel:{{client.phoneForTel}}" class="cs-card-info">{{client.phoneForTel}} </a>
+                <a href="tel:{{client.phoneForTel}}" class="cs-card-info">{{client.phoneFormatted}} </a>
              
             </div>
         </div>
@@ -335,52 +333,7 @@
     <div class="cs-container" style="padding-top: 30px;">
         <!-- Logo Group -->
 
-        <!-- Links -->
-        <div class="cs-ul-wrapper" >
-            <span class="cs-header">Chesaning Inn & Suites</span>
-            <ul id="cs-expanded" class="cs-ul">
-              <li class="cs-li">
-                <a href="/" class="cs-link {{ 'cs-active' if '/' == page.url }}">
-                    Home
-                </a>
-            </li>
-
-            <li class="cs-li">
-                <a href="/rooms" class="cs-link {{ 'cs-active' if 'rooms' == page.fileSlug }}">
-                   Rooms
-                </a>
-            </li>
-            <li class="cs-li">
-                <a href="/amenities" class="cs-link {{ 'cs-active' if 'amenities' == page.fileSlug }}">
-                    Amenities
-                </a>
-            </li>
-            <li class="cs-li">
-              <a href="/photos" class="cs-link {{ 'cs-active' if 'photos' == page.fileSlug }}">
-                  Photos
-              </a>
-          </li>
-          <li class="cs-li">
-            <a href="/area" class="cs-link {{ 'cs-active' if 'photos' == page.fileSlug }}">
-               Area
-            </a>
-        </li>
-        <li class="cs-li">
-          <a href="/policies" class="cs-link {{ 'cs-active' if 'photos' == page.fileSlug }}">
-              Policies
-          </a>
-      </li>
-            <li class="cs-li">
-                <a href="/contact" class="cs-link {{ 'cs-active' if 'contact' == page.fileSlug }}">
-                   Contact 
-                </a>
-            </li>
-            </ul>
-        </div>
-
-        <div class="cs-ul-wrapper">
-        
-        </div>
+   
         <div class="cs-contact">
             <div class="cs-contact-info">
                 <span class="cs-header">Follow Us</span>
