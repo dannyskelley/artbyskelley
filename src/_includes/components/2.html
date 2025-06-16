@@ -1,121 +1,152 @@
 <!-- ============================================ -->
-<!--              Side By Side Reverse            -->
+<!--                Why Choose Us                 -->
 <!-- ============================================ -->
+
 <style>
-    /*-- -------------------------- -->
-<---   Side By Side Reverse     -->
+  /*-- -------------------------- -->
+<!--       Why Choose Us        -->
 <--- -------------------------- -*/
 
 /* Mobile - 360px */
 @media only screen and (min-width: 0rem) {
-  #sbsr-2217 {
+  #why-choose-1874 {
     padding: var(--sectionPadding);
-  
-    background: #FFFFFF;
-    background: radial-gradient(at center bottom, #FFFFFF, #badbff);
-    overflow: hidden;
+    /* 128px - 192px */
+    padding-bottom: clamp(8rem, 14vw, 12rem);
+    background-color: #222;
+    overflow-x: clip;
     position: relative;
-    z-index: 1;
   }
-  #sbsr-2217 .cs-container {
+   #why-choose-1874 .cs-button-solid {background-color: transparent; border:1px solid white;}
+  #why-choose-1874 .cs-container {
     width: 100%;
-    /* changes to 1280px at desktop */
+    /* changes to 1280px at tablet */
     max-width: 36.5rem;
     margin: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     /* 48px - 64px */
     gap: clamp(3rem, 6vw, 4rem);
   }
-  #sbsr-2217 .cs-content {
+  #why-choose-1874 .cs-content {
     /* set text align to left if content needs to be left aligned */
     text-align: left;
     width: 100%;
-    max-width: 36.625rem;
     display: flex;
     flex-direction: column;
     /* centers content horizontally, set to flex-start to left align */
     align-items: flex-start;
   }
-  #sbsr-2217 .cs-text {
-    margin-bottom: 1.5rem;
+  #why-choose-1874 .cs-title {
+    color: var(--bodyTextColorWhite);
   }
-  #sbsr-2217 .cs-list {
-    margin: 0 0 2rem 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* 24px - 32px */
-    gap: clamp(1.5rem, 3vw, 2rem);
+  #why-choose-1874 .cs-text {
+    /* 12px - 24px */
+    margin-bottom: clamp(0.75rem, 4vw, 1.5rem);
+    color: var(--bodyTextColorWhite);
+    opacity: 0.8;
   }
-  #sbsr-2217 .cs-li {
-    list-style: none;
+  #why-choose-1874 .cs-ul {
+    max-width: 39.375rem;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-auto-flow: row;
+    /* 4px - 12px */
+    gap: clamp(0.25rem, 2vw, 0.75rem);
+  }
+  #why-choose-1874 .cs-li {
+    font-size: var(--bodyFontSize);
+    line-height: 1.5em;
+    list-style: none;
+    width: 100%;
+    color: var(--bodyTextColorWhite);
+    opacity: 0.8;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
-  #sbsr-2217 .cs-icon-wrapper {
-    /* 60px - 80px */
-    width: clamp(3.75rem, 7vw, 5rem);
-    height: clamp(3.75rem, 7vw, 5rem);
-    border: 1px solid #bababa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: none;
-  }
-  #sbsr-2217 .cs-icon {
-    width: 2rem;
+  #why-choose-1874 .cs-check-icon {
+    width: 1.5rem;
     height: auto;
+    /* adds extra space between the icon and top of parent so it's more centered */
+    margin-top: 1px;
     display: block;
   }
-  #sbsr-2217 .cs-h3 {
-    /* 20px - 25px */
-    font-size: clamp(1.25rem, 2.5vw, 1.5625rem);
-    font-weight: 700;
-    line-height: 1.2em;
-    text-align: left;
-    margin: 0 0 0.75rem 0;
-    color: var(--headerColor);
-  }
-  #sbsr-2217 .cs-li-text {
-    /* 14px - 16px */
-    font-size: clamp(0.875rem, 1.8vw, 1rem);
-    line-height: 1.5em;
-    text-align: left;
-    margin: 0;
-    color: var(--bodyTextColor);
-  }
-  #sbsr-2217 .cs-image-group {
-    /* scales the whole group based on the view width size and stop when that vales equals .74em, resets at desktop */
-    font-size: min(2.32vw, .74em);
-    width: 39.375em;
-    height: 40.9375em;
+ 
+  #why-choose-1874 .cs-video-wrapper {
+    width: 100%;
+    height: 111vw;
+    max-height: 22.5rem;
     display: block;
     position: relative;
     z-index: 1;
   }
-  #sbsr-2217 .cs-image-group::before {
-    content: "";
-    width: 22.375em;
+  #why-choose-1874 .cs-video-wrapper:hover {
+    cursor: pointer;
+  }
+  #why-choose-1874 .cs-video-wrapper:hover .cs-play {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  #why-choose-1874 .cs-video-wrapper video,
+  #why-choose-1874 .cs-video-wrapper .cs-picture {
+    width: 100%;
+    height: 100%;
+    /* makes image act as a background image */
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  #why-choose-1874 .cs-video-wrapper video img,
+  #why-choose-1874 .cs-video-wrapper .cs-picture img {
+    width: 100%;
+    height: 100%;
+    /* makes image act as a background image */
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  #why-choose-1874 .cs-play {
+    /* 80px - 120px */
+    width: clamp(5rem, 10vw, 7.5rem);
+    height: clamp(5rem, 10vw, 7.5rem);
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s, opacity 0.3s;
+    backdrop-filter: blur(8px);
+  }
+  #why-choose-1874 .cs-play.cs-hide {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) !important;
+  }
+  #why-choose-1874 .cs-icon {
+    width: 1.25rem;
     height: auto;
-    background: var(--secondary);
-    opacity: 0.2;
+  }
+  #why-choose-1874 .cs-picture {
+    width: 100%;
+    height: 95vw;
+    /* 260px - 324px */
+    min-height: clamp(16.25rem, 32vw, 20.25rem);
+    margin: clamp(3rem, 6vw, 4rem) 0 0;
     display: block;
-    position: absolute;
-    top: 9em;
-    bottom: 11.125em;
-    left: 5.5em;
+    position: relative;
+    z-index: 1;
   }
-  #sbsr-2217 .cs-picture {
-    position: absolute;
-  }
-  #sbsr-2217 .cs-picture img {
+  #why-choose-1874 .cs-picture img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -123,111 +154,91 @@
     top: 0;
     left: 0;
   }
-  #sbsr-2217 .cs-picture1 {
-    width: 19.0625em;
+  #why-choose-1874 .cs-graphic {
+    width: 100%;
+    min-width: 75rem;
     height: auto;
-    border: 4px solid #FFFFFF;
-    top: 0;
-    bottom: 17.5625em;
-    left: 0;
-  }
-  #sbsr-2217 .cs-picture2 {
-    width: 25.8125em;
-    height: auto;
-    border: 4px solid #FFFFFF;
-    top: 16.9375em;
-    right: 0;
-    bottom: 0;
-  }
-  #sbsr-2217 .cs-picture3 {
-    width: 13.625em;
-    height: 9.6875em;
-    top: 5.25em;
-    right: 4.6875em;
-  }
-  #sbsr-2217 .cs-graphic {
-    /* 131px - 255px */
-    width: clamp(5.8175rem, 15vw, 15.9375rem);
-    height: auto;
-    display: block;
+    object-fit: cover;
     position: absolute;
-    top: 0;
-    right: 0;
-    z-index: -1;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
- 
+  #why-choose-1874 .cs-dark {
+    display: none;
+  }
 }
-/* Small Desktop - 1024px */
-@media only screen and (min-width: 64rem) {
-
-    
-  #sbsr-2217 .cs-container {
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+  #why-choose-1874 .cs-video-wrapper {
+    height: 90%;
+    max-height: 100%;
+    /* 420px - 740px */
+    min-height: clamp(26.25rem, 50vw, 46.25rem);
+  }
+  #why-choose-1874 .cs-container {
     max-width: 80rem;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: stretch;
   }
-  #sbsr-2217 .cs-content {
-    width: 47%;
-    align-self: center;
-  }
-  #sbsr-2217 .cs-li {
-    align-items: center;
-  }
-  #sbsr-2217 .cs-image-group {
-    font-size: min(1.2vw, 1em);
-    height: auto;
+  #why-choose-1874 .cs-content {
+    width: 52%;
+    max-width: 34.375rem;
+    /* prevents flexbox from squishing it */
     flex: none;
-    order: 2;
+  }
+  #why-choose-1874 .cs-ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #why-choose-1874 .cs-picture {
+    height: 100%;
+    max-height: 100%;
+  }
+}
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+  #why-choose-1874 {
+    padding-bottom: 10vw;
+    margin-top: 40px;
+  }
+  #why-choose-1874 .cs-container {
+    align-items: stretch;
+  }
+  #why-choose-1874 .cs-video-wrapper {
+    height: auto;
+    margin-bottom: 8.75rem;
   }
 }
                                 
 </style>
-<section id="sbsr-2217">
+
+<section id="why-choose-1874">
     <div class="cs-container">
-        <div class="cs-image-group">
-            <!--Top left image-->
-            <picture class="cs-picture cs-picture1">
-                <!--Mobile Image-->
-                <source media="(max-width: 600px)" srcset="/assets/images/2.jpg">
-                <!--Tablet and above Image-->
-                <source media="(min-width: 601px)" srcset="/assets/images/2.jpg">
-                <img loading="lazy" decoding="async" src="/assets/images/2.jpg" alt="wedding photoshoot" width="297" height="366">
-            </picture>
-            <!--Bottom right image-->
-            <picture class="cs-picture cs-picture2">
-                <!--Mobile Image-->
-                <source media="(max-width: 600px)" srcset="/assets/images/4.jpg">
-                <!--Tablet and above Image-->
-                <source media="(min-width: 601px)" srcset="/assets/images/4.jpg">
-                <img loading="lazy" decoding="async" src="/assets/images/4.jpg" alt="photograph of a woman" width="405" height="376">
-            </picture>
-            <!--Middle image-->
-            <picture class="cs-picture cs-picture3">
-                <!--Mobile Image-->
-                <source media="(max-width: 600px)" srcset="/assets/images/5.jpg">
-                <!--Tablet and above Image-->
-                <source media="(min-width: 601px)" srcset="/assets/images/5.jpg">
-                <img loading="lazy" decoding="async" src="/assets/images/5.jpg" alt="children's birthday" width="218" height="155">
-            </picture>
-        </div>
         <div class="cs-content">
-          <span class="cs-topper">Chesaning Inn & Suites</span>
-            <h2 class="cs-title"> Cozy Comfort in the Heart of Chesaning, MI</h2>
+           <span class="cs-topper"> Buy or Sell your home with </span>
+            <h2 class="cs-title">Michigan’s #5 Ranked Realtor
+
+</h2>
             <p class="cs-text">
-             
-             
-
-              Chesaning Inn & Suites offers that classic, small town charm with the comfort and ease of a modern stay. Each of our rooms has its own character. Located in the friendly village of Chesaning, our hotel is just minutes from local shops, events, and outdoor attractions. Our front desk team knows the area inside and out and is happy to help you plan your visit. Pull right up to your room, settle in, and enjoy a stay that feels just like home.
-              
-              
-
-                    <div style="margin-top: 30px;">
-                    
-                      {% include 'components/cta_button.html' %}
-                  </div>
-                      
+                When you're ready to make a move in Metro Detroit, work with the boutique brokerage that brings hustle, experience, and unmatched results to every deal. No handoffs. Just high-level representation.
+            </p>
+       
+            <a class="cs-button-solid" href="">Schedule Your Free Consultation</a>
+        
+        </div>
+        <div class="cs-video-wrapper">
+            <!--Compress your video and upload it to a CDN like Digital Oceans Spaces so the video file doesn't cause load time issues. You can also remove the video tag and uncomment the picture tag to use a image instead of a video. Don't forget to remove the cs-play button!-->
+            <video loading="lazy" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Videos/gym.mp4" autoplay="false"></video>
+            <!-- <picture class="cs-picture">
+                    <source media="(max-width: 600px)" srcset="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/People/gym-hero.jpg">
+                    <source media="(min-width: 601px)" srcset="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/People/gym-hero.jpg">
+                    <img loading="lazy" decoding="async" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/People/gym-hero.jpg" alt="body builder" width="630" height="877">
+                </picture> -->
+            <button class="cs-play" aria-label="click to play video">
+                <img src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/play-right.svg" alt="play icon" class="cs-icon" width="24" height="24" aria-hidden="true" decoding="async">
+            </button>
         </div>
     </div>
-  </section>
+   </section>
                                 

@@ -17,7 +17,7 @@
         --headerScroll: #fff;
         --mobileNav: #fff;
         --callBg: black;
-        --secondary:#006dc9;
+        --secondary:#BD9B2F;
         --secondaryLight: #001f3f;
         --headerColor: #1a1a1a;
         --bodyTextColor: rgba(0,0,0,.8);
@@ -29,9 +29,9 @@
         --navLinkActive:  rgba(0, 0, 0, 0.6);
 
         /* 13px - 16px */
-        --topperFontSize: clamp(1rem, 1.1vw, 1rem);
+        --topperFontSize: clamp(2rem, 1.1vw, 3rem);
         /* 31px - 49px */
-        --headerFontSize: clamp(2.5375rem, 3.9vw, 3.0625rem);
+        --headerFontSize: clamp(2.5375rem, 3.9vw, 4.0625rem);
         --bodyFontSize: 1.4rem;
 
         /* 60px - 100px top and bottom */
@@ -42,7 +42,7 @@
     .cs-topper {
         display: block;
         margin-bottom: 0.25rem;
-        font-family: "Oswald", Arial, sans-serif;
+        font-family: "Tenor Sans", Arial, sans-serif;
         font-size: var(--topperFontSize);
         line-height: 1.2em;
         font-weight: 700;
@@ -59,7 +59,7 @@
         font-weight: 700;
         color: var(--headerColor);
         text-align: inherit;
-        font-family: "Oswald", Arial, sans-serif;
+        font-family: "Tenor Sans", Arial, sans-serif;
         
     }
 
@@ -87,7 +87,7 @@
         padding: 20px 30px;
         text-decoration: none;
     border-radius: 99px;
-    font-family: "Roboto";
+    font-family: "Tenor Sans";
         font-size: calc(16 / 16 * 1rem);
         font-weight: 700;
         line-height: 22px;
@@ -167,7 +167,7 @@
     h6 {
         margin: 0;
         color: var(--headerColor);
-        font-family: "Oswald", Arial, sans-serif;
+        font-family: "Tenor Sans", Arial, sans-serif;
     }
 
     p,
@@ -202,13 +202,13 @@
 
     @font-face {
         font-style: normal;
-        font-family: "Oswald";
+        font-family: "Tenor Sans";
         font-weight: 700;
         font-display: swap;
         src: local(""),
-            url("/assets/fonts/oswald-v56-latin-200.woff2") format("woff2"),
+            url("/assets/fonts/tenor-sans-v20-latin-regular.woff2") format("woff2"),
             /* Chrome 26+, Opera 23+, Firefox 39+ */
-                url("/assets/fonts/oswald-v56-latin-200.woff2")
+                url("/assets/fonts/tenor-sans-v20-latin-regular.woff2")
                 format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
     }
 
