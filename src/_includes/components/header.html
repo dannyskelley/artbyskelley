@@ -1510,7 +1510,7 @@ button {
 /* Small Desktop - 1024px */
 @media only screen and (min-width: 64rem) {
 
-   
+   .desktopHide {display: none;}
     #cs-navigation {
         width: 100%;
         padding: 20px 0px 0px 0px;
@@ -1861,17 +1861,27 @@ button {
                             Listings
                         </a>
                     </li>
-                   
+                           
+                        <li class="cs-li desktopHide">
+                        <a  href="/" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
+                           Get Pre Approved Today 
+                        </a>
+                    </li>
+                           <li class="cs-li desktopHide">
+                        <a  href="/" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
+                           What is my Home Worth? 
+                        </a>
+                    </li>
+
+                         <li class="cs-li desktopHide">
+                        <a  href="/contact" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
+                          Schedule A Free Real Estate Consult
+                        </a>
+                    </li>
+                      
                                 
                 </ul>
-                <div class="cs-call">
-
-
-                    <span class="mobile-link mobile-link1" style="background-color: var(--primary); color:white;">Get a Free Quote</span>
-
-                    <a class="mobile-link mobile-link2" href="tel:{{client.phoneForTel}}">
-                        Call Now {{client.phoneForTel}}</a></span>
-                </div>
+                
             </div>
         </nav>
         <a href="/contact" class="cs-button-10 cs-button-solid cs-nav-button" aria-label="read more about us">
