@@ -32,7 +32,7 @@ body,
         content: "";
         width: 100%;
         height: 100%;
-        background:var(--headerScroll);
+     
     }
 
     button {
@@ -40,7 +40,7 @@ body,
         border: 0px;
     }
 
-    body.scroll #cs-navigation .cs-logo {max-width: 200px;}
+    body.scroll #cs-navigation .cs-logo {height: 80px; width: auto;}
 
     
     /* Mobile - 1023px */
@@ -83,7 +83,7 @@ body,
             width: 100%;
             /* prevents padding and border from affecting height and width */
             box-sizing: border-box;
-            background-color: var(--navBg);
+           
             position: fixed;
             z-index: 10000;
         }
@@ -99,9 +99,7 @@ body,
             top: 0;
             left: 0;
             z-index: -1;
-            transition:
-                width 0.3s,
-                opacity 0.3s;
+            
         }
 
         #cs-navigation.cs-active .cs-ul-wrapper {
@@ -351,6 +349,7 @@ body,
             /* 16px - 24px */
             font-size: clamp(1.3rem, 3vw, 1.5rem);
             line-height: 1.2em;
+        font-family: "Oswald", Arial, sans-serif;
             text-decoration: none;
             margin: 0;
             margin-bottom: 10px;
@@ -619,6 +618,8 @@ body,
     @media only screen and (min-width: 64rem) {
         body.scroll #cs-navigation:after {
             height: 100%;
+            background-color: white;
+            transition: all 0.5s ease;
         }
 
         #cs-navigation {
@@ -626,7 +627,7 @@ body,
             padding: 0;
             /* prevents padding and border from affecting height and width */
             box-sizing: border-box;
-background-color: white;
+
             position: fixed;
             z-index: 10000;
         }
@@ -672,7 +673,7 @@ background-color: white;
         }
 
         #cs-navigation .cs-logo {
-          
+          transition: all ease .2s;
             /* margin-right auto pushes everything away from it to the right */
             margin: 0 auto 0 0;
             padding: 0;
@@ -680,13 +681,14 @@ background-color: white;
             justify-content: center;
             align-items: center;
             z-index: 100;
-           
+           position: absolute;
             overflow: hidden;
+          ;
         }
 
         #cs-navigation .cs-logo img {
             width: 100%;
-           
+           transition: all ease .2s;
             /* ensures the image never overflows the container. It stays contained within it's width and height and expands to fill it then stops once it reaches an edge */
             object-fit: contain;
         }
@@ -916,8 +918,7 @@ html {
 }
 
 #cs-navigation .cs-logo {
-    width: 500px;
-    max-width: 300px;
+    max-width: 150px;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -938,7 +939,7 @@ html {
     content: "";
     width: 100%;
     height: 100%;
-    background: var(--headerScroll);
+ 
 }
 
 button {
@@ -946,9 +947,7 @@ button {
     border: 0px;
 }
 
-body.scroll #cs-navigation .cs-logo {
-    height: 100%;
-}
+
 
 /* Mobile - 1023px */
 @media only screen and (max-width: 63.9375rem) {
@@ -1129,8 +1128,8 @@ body.scroll #cs-navigation .cs-logo {
 
     #cs-navigation .cs-line {
         width: 100%;
-        height: 3px;
-        border-radius: 2px;
+        height: 1px;
+
         background-color: #000;
         position: absolute;
         left: 50%;
@@ -1491,9 +1490,7 @@ body.scroll #cs-navigation .cs-logo {
         box-sizing: border-box;
         color: black;
         display: block;
-        transition:
-            color 0.3s,
-            background-color 0.3s;
+        
     }
 
     #cs-navigation .cs-li-link.cs-drop-link:hover {
@@ -1512,9 +1509,7 @@ body.scroll #cs-navigation .cs-logo {
 
 /* Small Desktop - 1024px */
 @media only screen and (min-width: 64rem) {
-    body.scroll #cs-navigation:after {
-        height: 100%;
-    }
+
    
     #cs-navigation {
         width: 100%;
@@ -1522,12 +1517,13 @@ body.scroll #cs-navigation .cs-logo {
         height: 90px;
         /* prevents padding and border from affecting height and width */
         box-sizing: border-box;
-        background-color: var(--navBg);
+       
         position: fixed;
         z-index: 10000;
     }
    body.scroll #cs-navigation {
-        height:70px;
+        height:80px;
+        
     }
     #cs-navigation:after {
         /* on scroll overlay */
@@ -1539,16 +1535,14 @@ body.scroll #cs-navigation .cs-logo {
         top: 0;
         left: 0;
         z-index: -1;
-        transition:
-            height 0.3s,
-            opacity 0.3s;
+        
     }
 
     #cs-navigation .cs-container {
         width: 100%;
         /* same height as the cs-ul-wrapper */
         height: auto;
-        max-width: 100%;
+        max-width: 114.5rem;
         margin: auto;
         padding: 0 1rem;
         /* prevents padding from affectin gheight */
@@ -1583,6 +1577,8 @@ body.scroll #cs-navigation .cs-logo {
         width: 100%;
         /* ensures the image never overflows the container. It stays contained within it's width and height and expands to fill it then stops once it reaches an edge */
         object-fit: contain;
+        max-width: 150px;
+        
     }
 
     #cs-navigation .cs-ul-wrapper {
@@ -1613,10 +1609,11 @@ body.scroll #cs-navigation .cs-logo {
 
     #cs-navigation .cs-li-link {
         /* 14px - 16px */
-        font-size: clamp(1.1rem, 0.6vw, 1.2rem);
+        font-size: clamp(1rem, 0.6vw, .8rem);
         line-height: 1.5em;
-        text-transform: none;
-        font-weight: 500;
+          
+           
+        font-weight: 100;
         margin: 0;
         color: var(--navLink);
         display: block;
@@ -1763,7 +1760,8 @@ body.scroll #cs-navigation .cs-logo {
 @media only screen and (min-width: 1024px) {
 
     #cs-navigation .cs-logo { position: absolute;
-            left: 0px;
+            left: 30px;
+            
             top:-20px;}
     #cs-navigation .cs-drop-ul {
         overflow: visible;
@@ -1823,18 +1821,16 @@ body.scroll #cs-navigation .cs-logo {
             <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
             <div class="cs-ul-wrapper">
                 <ul id="cs-expanded" class="cs-ul">
-                    <li class="cs-li">
-                        <a href="/" class="cs-li-link {{ 'cs-active' if '/' == page.url }}">
-                            Home
-                        </a>
-                    </li>
+                 
+
+                    
+    
           
                     <!--Copy and paste this cs-dropdown list item and replace any .cs-li with this cs-dropdown group to make a new dropdown and it will work-->
                     <li class="cs-li cs-dropdown" tabindex="0">
                         <span class="cs-li-link {{ 'cs-active' if 'services' == page.fileSlug }} cs-dropdown-toggle">
                             Services
-                            <img class="cs-drop-icon" style="filter: grayscale(1) brightness(1000%);" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons%2Fdown.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
-                        </span>
+                                   </span>
                         <ul class="cs-drop-ul">
                             <a href="/services" class="cs-li-link cs-drop-link">
                                View All Services
@@ -1905,12 +1901,17 @@ body.scroll #cs-navigation .cs-logo {
                     </li>
                     <li class="cs-li">
                         <a href="/about" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
-                            About Us
+                            About
                         </a>
                     </li>
                     <li class="cs-li">
                         <a href="/about" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
-                           Photos
+                           Buy
+                        </a>
+                    </li>
+                   <li class="cs-li">
+                        <a href="/about" class="cs-li-link {{ 'cs-active' if 'about' == page.fileSlug }}">
+                           Sell
                         </a>
                     </li>
              
@@ -1932,7 +1933,7 @@ body.scroll #cs-navigation .cs-logo {
             </div>
         </nav>
         <a href="/contact" class="cs-button-10 cs-button-solid cs-nav-button" aria-label="read more about us">
-            Call Now {{client.phoneForTel}}
+            Call Now 
      
             </a>
         <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->

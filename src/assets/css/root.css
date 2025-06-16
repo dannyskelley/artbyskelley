@@ -10,19 +10,19 @@
 @media only screen and (min-width: 0em) {
   :root {
     --primaryLight: #679CD5;
-    --primary: #bc3731;
+    --primary: #BD9B2F;
     --primaryDark: black;
-    --headerScroll: #737373;
-    --mobileNav: #737373;
+    --headerScroll: #fff;
+    --mobileNav: #fff;
     --callBg: black;
     --secondary:#006dc9;
     --secondaryLight: #001f3f;
     --headerColor: #1a1a1a;
     --bodyTextColor: rgba(0,0,0,.8);
     --bodyTextColorWhite: #fafbfc;
-    --navBg:#737373;
-    --navLink:white ;
-    --navLinkActive: white;
+    --navBg:#fff;
+    --navLink:rgba(0, 0, 0, 0.6);
+    --navLinkActive: rgba(0, 0, 0, 0.6);
     /* 13px - 16px */
     --topperFontSize: clamp(1rem, 1.1vw, 1rem);
     /* 31px - 49px */
@@ -34,7 +34,7 @@
   .cs-topper {
     display: block;
     margin-bottom: 0.25rem;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: "Oswald", Arial, sans-serif;
     font-size: var(--topperFontSize);
     line-height: 1.2em;
     font-weight: 700;
@@ -50,7 +50,7 @@
     font-weight: 700;
     color: var(--headerColor);
     text-align: inherit;
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: "Oswald", Arial, sans-serif;
   }
   .cs-text {
     margin: 0;
@@ -65,19 +65,19 @@
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
   }
   .cs-button-solid {
-    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     position: relative;
-    text-transform: none;
+    text-transform: uppercase;
     display: inline-block;
     background-color: var(--primary);
     width: auto;
-    border: 1px solid white;
+    border: 0px solid white;
     padding: 20px 30px;
     text-decoration: none;
-    border-radius: 9px;
-    font-family: "Poppins";
+    border-radius: 99px;
+    font-family: "Roboto";
     font-size: 1rem;
+    font-weight: 700;
     line-height: 22px;
     font-weight: bold;
     color: white;
@@ -138,7 +138,7 @@
   h6 {
     margin: 0;
     color: var(--headerColor);
-    font-family: "Poppins", Arial, sans-serif;
+    font-family: "Oswald", Arial, sans-serif;
   }
   p,
   li,
@@ -164,10 +164,10 @@
   }
   @font-face {
     font-style: normal;
-    font-family: "Poppins";
+    font-family: "Oswald";
     font-weight: 700;
     font-display: swap;
-    src: local(""), url("/assets/fonts/poppins-v21-latin-700.woff2") format("woff2"), url("/assets/fonts/poppins-v21-latin-700.woff2") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    src: local(""), url("/assets/fonts/oswald-v56-latin-200.woff2") format("woff2"), url("/assets/fonts/oswald-v56-latin-200.woff2") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
   }
   /* roboto-regular - latin */
   @font-face {
