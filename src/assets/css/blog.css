@@ -782,6 +782,9 @@
     justify-content: space-between;
     align-items: flex-start;
   }
+  #cs-footer .cs-title {
+    max-width: 73rem;
+  }
   #cs-footer .cs-logo {
     margin: 0;
   }
