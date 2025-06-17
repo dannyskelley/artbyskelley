@@ -565,8 +565,8 @@
     color: var(--headerColor);
   }
   .blog-article #blog-content {
-    margin-top: 1em;
-    padding-top: 1.5625em;
+    margin-top: 0;
+    padding-top: 0;
   }
   .blog-article #blog-content h1 {
     font-size: 2.25rem;
