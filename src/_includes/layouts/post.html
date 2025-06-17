@@ -20,6 +20,10 @@ eleventyComputed:
 {% block body %}
 
 
+                             <h1 class="cs-title">{{ title }}</h1>
+                           <!--Main Article Image-->
+        
+  <img style="margin:auto; display:block; max-width: 1200px;" src="{{ image }}" alt="{{ imageAlt }}" decoding="async" />
 
 
     <!-- ============================================ -->
@@ -34,15 +38,11 @@ eleventyComputed:
             <!-- ============================================ -->
 
             <article class="blog-article" >
-         
+
+             
                 <!--Article Info-->
                 <div class="article-group" >
-                    <h1 class="cs-title">{{ title }}</h1>
-                           <!--Main Article Image-->
-        
-  <img style="margin:auto; display:block; max-width: 1200px;" src="{{ image }}" alt="{{ imageAlt }}" decoding="async" />
-
-                   
+      
                 </div>
                 <section id="blog-content">
                     {{ content | safe }}
