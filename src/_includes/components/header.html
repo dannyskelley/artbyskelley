@@ -40,7 +40,7 @@ body,
         border: 0px;
     }
 
-    body.scroll #cs-navigation .cs-logo img {height: 80px; width: auto; transition: all ease .3s;}
+    body.scroll #cs-navigation .cs-logo {max-width: 80px; width:80px; height: 80px; transition: all ease .3s;}
 
     
     /* Mobile - 1023px */
@@ -673,7 +673,8 @@ body,
         }
 
         #cs-navigation .cs-logo {
-        
+        height: 150px;
+        width: 150px;
             /* margin-right auto pushes everything away from it to the right */
             margin: 0 auto 0 0;
             padding: 0;
@@ -683,13 +684,13 @@ body,
             z-index: 100;
            position: absolute;
             overflow: hidden;
-              transition: all ease 2s;
+              transition: all ease .2s;
           ;
         }
 
         #cs-navigation .cs-logo img {
-            width: 100%;
-          height: 100px;
+            width:100%;
+          height: 100%;
             /* ensures the image never overfl
             ows the container. It stays contained within it's width and height and expands to fill it then stops once it reaches an edge */
             object-fit: contain;
@@ -922,13 +923,15 @@ html {
 
 #cs-navigation .cs-logo {
     max-width: 150px;
+    width: 150px;
+    height: 150px;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
     overflow: hidden;
-    transition: all ease 2s;
+    transition: all ease .2s;
 }
 
 #cs-navigation .cs-logo img {
@@ -1576,14 +1579,17 @@ button {
         align-items: center;
         z-index: 100;
         overflow: hidden;
+        height: 150px;
+        width: 150px;
+        max-width: 150px;
     }
 
     #cs-navigation .cs-logo img {
         width: 100%;
-        height: 150px;
+        height: 100%;
         /* ensures the image never overflows the container. It stays contained within it's width and height and expands to fill it then stops once it reaches an edge */
         object-fit: contain;
-        max-width: 150px;
+        
         transition: all ease .3s;
         
     }
@@ -1768,7 +1774,7 @@ button {
 
     #cs-navigation .cs-logo { position: absolute;
             left: 30px;
-            
+           
             top:-20px;}
     #cs-navigation .cs-drop-ul {
         overflow: visible;
