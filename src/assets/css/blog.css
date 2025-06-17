@@ -567,7 +567,6 @@
   .blog-article #blog-content {
     margin-top: 1em;
     padding-top: 1.5625em;
-    border-top: 1px solid #ebebeb;
   }
   .blog-article #blog-content h1 {
     font-size: 2.25rem;
@@ -580,6 +579,7 @@
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1.5em;
+    margin-top: 5rem;
     margin-bottom: 1rem;
     color: var(--headerColor);
   }
