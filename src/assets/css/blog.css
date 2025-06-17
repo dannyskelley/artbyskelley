@@ -628,7 +628,7 @@
   .blog-article #blog-content img {
     width: 100%;
     height: auto;
-    margin: 1rem 0;
+    margin: 100px 0px;
     border-radius: 0.5rem;
     display: block;
   }
@@ -781,9 +781,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-  }
-  #cs-footer .cs-title {
-    max-width: 73rem;
   }
   #cs-footer .cs-logo {
     margin: 0;
