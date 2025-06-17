@@ -38,19 +38,20 @@ eleventyNavigation:
 
                         <!--Article Info-->
                         <div class="article-group">
-                            <div class="blog-authorGroup">
+                      
+                            <h2 class="blog-h1">
+                                <a href="{{ post.url }}" class="blog-h1">{{ post.data.title }}</a>
+                            </h2>
+                                  <div class="blog-authorGroup">
                                
                                
                                 <!--Blog Date-->
                                 <span class="blog-date">{{ post.date | postDate }}</span>
                             </div>
-                            <h2 class="blog-h1">
-                                <a href="{{ post.url }}" class="blog-h1">{{ post.data.title }}</a>
-                            </h2>
-                            <p class="blog-desc">
+                            <!--<p class="blog-desc">
                                 {{ post.data.description }}
-                            </p>
-                            <a href="{{ post.url }}" class="cs-button-solid">Read Full Post</a>
+                            </p>-->
+                            <a style="margin-top:30px" href="{{ post.url }}" class="cs-button-solid">Read Full Post</a>
                         </div>
                     </article>
                 {%- endfor -%}
