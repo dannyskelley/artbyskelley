@@ -10,165 +10,71 @@ eleventyNavigation:
 {% extends "layouts/base.html" %}
 
 {% block head %}
-  <style>
-    img { max-width: 100%; height: auto; padding: 0; margin: 0; }
-    body { padding: 0; margin: 0; font-family: sans-serif; }
-    .drop-zone {
-      border: 2px dashed #aaa;
-      padding: 40px;
-      margin: 40px 0;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.3s;
-      border-radius: 10px;
-    }
-    .drop-zone.dragover { background: #f0f0f0; }
-    .preview img { max-width: 120px; margin: 5px; border: 1px solid #ccc; border-radius: 5px; }
-    .post img { max-width: 100px; margin: 4px; border-radius: 4px; }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <STYLE>
+    img {max-width: 100%; height: auto;padding: 0px; margin: 0px;}
+    body {padding: 0px; margin: 0px;}
+  </STYLE>>
+
+  
+    <!-- Script for Netlify Identity -->
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script defer>
+        if (window.netlifyIdentity) {
+            window
+                .netlifyIdentity
+                .on('init', (user) => {
+                    if (!user) {
+                        window
+                            .netlifyIdentity
+                            .on('login', () => {
+                                document.location.href = '/admin/';
+                            });
+                    }
+                });
+        }
+    </script>
+
 {% endblock %}
 
 {% block body %}
-<main id="main">
-  <div class="main-content-wrapper" style="padding-bottom:30px">
+
+
+   
+<div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
+    <!--Main content -->
     <div class="main-content">
-      <h2>Sign Up or Log In</h2>
-      <input type="email" id="email" placeholder="Enter your email" style="width:100%; padding:8px; margin-bottom:10px;">
-      <button id="auth-btn">Send Magic Link</button>
-      <div id="auth-status" style="margin: 10px 0; color: green;"></div>
+        <!-- ============================================ -->
+        <!--                 Blog Articles                -->
+        <!-- ============================================ -->
 
-      <div id="user-ui" style="display: none;">
-        <div class="drop-zone" id="drop-zone">📁 Drag image files here to create a new post</div>
-        <div class="preview" id="preview"></div>
-        <input type="text" id="title" placeholder="Post Title" style="width:100%; padding:8px; margin-bottom:10px;" />
-        <textarea id="content" placeholder="Write your post..." style="width:100%; height:150px; padding:8px;"></textarea>
-        <button id="publish">Publish Post</button>
-
-        <div style="margin:20px 0">
-          <strong>Your Shareable Page URL:</strong>
-          <div id="share-url"></div>
-        </div>
-
-        <div class="sort-buttons" style="margin-bottom:20px">
-          <button onclick='sortPosts("desc")'>Newest First</button>
-          <button onclick='sortPosts("asc")'>Oldest First</button>
-          <button onclick='sortPosts("random")'>Random</button>
-        </div>
-
-        <h2>Your Uploaded Posts</h2>
-        <div id="post-container"></div>
-      </div>
+        {% if collections.post | length == 0 %}
+            <h1>No Recent Posts</h1>
+        {% else %}
+            {%- for post in collections.post | reverse -%}
+              
+                        <img
+                            src="{{ post.data.image }}"
+                            alt="{{ post.data.imageAlt }}"
+                            width="795"
+                            height="400"
+                            decoding="async" />
+                    </picture>
+                    <!--Article Info-->
+                    <div class="article-group">
+                       <!--- <h2 class="blog-h1">{{ post.data.title }}</h2> -->
+                        <div class="blog-authorGroup">
+                            <span class="blog-date">{{ post.date | postDate }}</span>
+                        </div>
+                        <!-- Full post content -->
+                        <div class="blog-content">
+                            {{ post.templateContent | safe }}
+                        </div>
+                    </div>
+                </article>
+            {%- endfor -%}
+        {% endif %}
     </div>
-  </div>
-</main>
+</div>
 
-<script>
-  const SUPABASE_URL = "https://upcschzejeroetbqvazl.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwY3NjaHplamVyb2V0YnF2YXpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMDIyMTksImV4cCI6MjA2ODg3ODIxOX0.Fllz_T19fpekOaDr-8kZfA6Iave61RSJRWSyGhG4wek";
-  const BUCKET = "blog-images";
-  const { createClient } = supabase;
-  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  let sessionUser = null;
-  let uploadedFiles = [];
-
-  function sortPosts(order) {
-    const container = document.getElementById("post-container");
-    const posts = Array.from(container.children);
-    let sorted;
-    if (order === "asc") sorted = posts.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-    else if (order === "desc") sorted = posts.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-    else sorted = posts.sort(() => Math.random() - 0.5);
-    container.innerHTML = "";
-    sorted.forEach(p => container.appendChild(p));
-  }
-
-  document.addEventListener("DOMContentLoaded", async () => {
-    const emailInput = document.getElementById("email");
-    const authBtn = document.getElementById("auth-btn");
-    const authStatus = document.getElementById("auth-status");
-    const userUI = document.getElementById("user-ui");
-
-    authBtn.addEventListener("click", async () => {
-      const email = emailInput.value.trim();
-      if (!email) return alert("Please enter an email");
-      const { error } = await supabaseClient.auth.signInWithOtp({ email });
-      if (error) {
-        authStatus.textContent = "Error: " + error.message;
-        authStatus.style.color = "red";
-      } else {
-        authStatus.textContent = "Magic link sent! Check your email.";
-        authStatus.style.color = "green";
-      }
-    });
-
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    sessionUser = session?.user || null;
-
-    if (!sessionUser) return;
-    userUI.style.display = "block";
-    document.getElementById("share-url").textContent = `${window.location.origin}/?user=${sessionUser.id}`;
-
-    const dropZone = document.getElementById("drop-zone");
-    const preview = document.getElementById("preview");
-    const postContainer = document.getElementById("post-container");
-
-    dropZone.addEventListener("dragover", e => {
-      e.preventDefault();
-      dropZone.classList.add("dragover");
-    });
-    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
-    dropZone.addEventListener("drop", async e => {
-      e.preventDefault();
-      dropZone.classList.remove("dragover");
-      const files = Array.from(e.dataTransfer.items)
-        .filter(i => i.kind === "file")
-        .map(i => i.getAsFile())
-        .filter(f => f && f.type.startsWith("image/"));
-      for (const file of files) {
-        const path = `posts/${Date.now()}-${file.name}`;
-        const { data, error } = await supabaseClient.storage.from(BUCKET).upload(path, file);
-        if (error) return alert("Upload failed: " + error.message);
-        const url = supabaseClient.storage.from(BUCKET).getPublicUrl(data.path).data.publicUrl;
-        uploadedFiles.push(url);
-        const img = document.createElement("img");
-        img.src = url;
-        preview.appendChild(img);
-      }
-    });
-
-    document.getElementById("publish")?.addEventListener("click", async () => {
-      const title = document.getElementById("title").value.trim();
-      const content = document.getElementById("content").value.trim();
-      if (!title || !content) return alert("Title and content required");
-      if (!sessionUser) return alert("Please log in first.");
-      const { error } = await supabaseClient.from("posts").insert({
-        title,
-        content,
-        images: uploadedFiles,
-        user_id: sessionUser.id
-      });
-      if (error) return alert("Error saving post: " + error.message);
-      alert("Post published!");
-      location.reload();
-    });
-
-    async function loadPosts() {
-      const { data, error } = await supabaseClient.from("posts")
-        .select("*")
-        .eq("user_id", sessionUser.id)
-        .order("created_at", { ascending: false });
-      if (error) return alert("Error loading posts: " + error.message);
-      data.forEach(post => {
-        const div = document.createElement("div");
-        div.className = "post";
-        div.dataset.date = post.created_at;
-        div.innerHTML = `<h3>${post.title}</h3><p>${post.content}</p>${post.images.map(u => `<img src="${u}" />`).join("")}`;
-        postContainer.appendChild(div);
-      });
-    }
-    loadPosts();
-  });
-</script>
-{% endblock %}
+    {% endblock %}
