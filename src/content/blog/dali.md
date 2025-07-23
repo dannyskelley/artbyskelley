@@ -2,7 +2,7 @@
 title: dali
 description: aaa
 author: aaa
-date: 2025-07-23T15:07:00.000-04:00
+date: 2025-07-24T15:07:00.000-04:00
 tags:
   - post
 image: /assets/images/blog/2000.5_arch-rem_web71.webp
