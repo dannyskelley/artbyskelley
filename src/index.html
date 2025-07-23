@@ -10,8 +10,10 @@ eleventyNavigation:
 {% extends "layouts/base.html" %}
 
 {% block head %}
-    <link rel="stylesheet" href="/assets/css/local.css" />
-    <link rel="stylesheet" href="/assets/css/critical.css" />
+  <STYLE>
+    img {max-width: 100%; height: auto;padding: 0px; margin: 0px;}
+    body {padding: 0px; margin: 0px;}
+  </STYLE>>
 
   
     <!-- Script for Netlify Identity -->
@@ -38,14 +40,31 @@ eleventyNavigation:
 
 
    
-{% include 'components/hero2.html' %}
-   
-{% include 'components/2.html' %}
-{% include 'components/homepics.html' %}
-{% include 'components/testimonial.html' %}
-{% include 'components/cta.html' %}
+<div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
+    <!--Main content -->
+    <div class="main-content">
+        <!-- ============================================ -->
+        <!--                 Blog Articles                -->
+        <!-- ============================================ -->
 
-
+        {% if collections.post | length == 0 %}
+            <h1>No Recent Posts</h1>
+        {% else %}
+            {%- for post in collections.post | reverse -%}
+              
+                        <img
+                            src="{{ post.data.image }}"
+                            alt="{{ post.data.imageAlt }}"
+                            width="795"
+                            height="400"
+                            decoding="async" />
+                   
+                            {{ post.templateContent | safe }}
+                
+            {%- endfor -%}
+        {% endif %}
+    </div>
+</div>
 
 
     {% endblock %}
