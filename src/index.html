@@ -14,94 +14,122 @@ eleventyNavigation:
     img {max-width: 100%; height: auto;padding: 0px; margin: 0px;}
     body {padding: 0px; margin: 0px;}
   </STYLE>
-
-  
-    <!-- Script for Netlify Identity -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script defer>
-        if (window.netlifyIdentity) {
-            window
-                .netlifyIdentity
-                .on('init', (user) => {
-                    if (!user) {
-                        window
-                            .netlifyIdentity
-                            .on('login', () => {
-                                document.location.href = '/admin/';
-                            });
-                    }
-                });
-        }
-    </script>
-
 {% endblock %}
 
 {% block body %}
-
-
-<div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
-    <!-- Main content -->
-    <div class="main-content">
-        <!-- Sort Buttons -->
-        <div style="margin-bottom: 20px;" class="sort-buttons">
-            <button onclick="sortPosts('desc')">Newest First</button>
-            <button onclick="sortPosts('asc')">Oldest First</button>
-            <button onclick="sortPosts('random')">Random</button>
-        </div>
-
-        <!-- Blog Articles -->
-        {% if collections.post | length == 0 %}
-            <h1>No Recent Posts</h1>
-        {% else %}
-            <div id="post-container">
-                {% for post in collections.post %}
-                    <article class="recent-articles" data-date="{{ post.date }}">
-                        <picture class="blog-mainImage">
-                            <img
-                                src="{{ post.data.image }}"
-                                alt="{{ post.data.imageAlt }}"
-                                width="795"
-                                height="400"
-                                decoding="async" />
-                        </picture>
-
-                        <div class="article-group">
-                            <h2 class="blog-h1">{{ post.data.title }}</h2>
-                            <div class="blog-authorGroup">
-                                <span class="blog-date">{{ post.date | postDate }}</span>
-                            </div>
-                            <div class="blog-content">
-                                {{ post.templateContent | safe }}
-                            </div>
-                        </div>
-                    </article>
-                {% endfor %}
-            </div>
-        {% endif %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Realtor in Southgate, MI | Providence Properties</title>
+  <link href="/assets/css/root.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .drop-zone { border: 2px dashed #aaa; padding: 40px; text-align: center; cursor: pointer; margin-bottom: 20px; border-radius: 10px; transition: background 0.3s ease; }
+    .drop-zone.dragover { background-color: #f0f0f0; }
+    .preview img { max-width: 120px; margin: 5px; border: 1px solid #ccc; border-radius: 5px; }
+    .post img { max-width: 100px; margin: 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <div class="main-content-wrapper" style="padding-bottom:30px">
+      <div class="main-content">
+        <div class="drop-zone" id="drop-zone">📁 Drag image files here to create a new post</div>
+        <div class="preview" id="preview"></div>
+        <input type="text" id="title" placeholder="Post Title" style="width:100%; padding:8px; margin-bottom:10px;" />
+        <textarea id="content" placeholder="Write your post..." style="width:100%; height:150px; padding:8px;"></textarea>
+        <button id="publish">Publish Post</button>
+        <hr>
+        <h2>Saved Posts</h2>
+        <div id="post-container"></div>
+      </div>
     </div>
-</div>
+  </main>
 
-<!-- Sorting Script -->
-<script>
-function sortPosts(order) {
-    const container = document.getElementById("post-container");
-    const posts = Array.from(container.children);
+  <script>
+    const SUPABASE_URL = "https://upcschzejeroetbqvazl.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwY3NjaHplamVyb2V0YnF2YXpsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzMDIyMTksImV4cCI6MjA2ODg3ODIxOX0.Fllz_T19fpekOaDr-8kZfA6Iave61RSJRWSyGhG4wek";
+    const BUCKET = "blog-images";
 
-    let sortedPosts;
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    if (order === "asc") {
-        sortedPosts = posts.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-    } else if (order === "desc") {
-        sortedPosts = posts.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-    } else if (order === "random") {
-        sortedPosts = posts.sort(() => Math.random() - 0.5);
+    const dropZone = document.getElementById("drop-zone");
+    const preview = document.getElementById("preview");
+    const uploadedFiles = [];
+
+    dropZone.addEventListener("dragover", e => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", async e => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const files = Array.from(e.dataTransfer.items)
+        .filter(item => item.kind === "file")
+        .map(item => item.getAsFile())
+        .filter(file => file && file.type.startsWith("image/"));
+
+      for (const file of files) {
+        const filePath = `posts/${Date.now()}-${file.name}`;
+        const { data, error } = await supabaseClient.storage.from(BUCKET).upload(filePath, file);
+        if (error) {
+          alert("Upload failed: " + error.message);
+        } else {
+          const url = supabaseClient.storage.from(BUCKET).getPublicUrl(data.path).data.publicUrl;
+          uploadedFiles.push(url);
+          const img = document.createElement("img");
+          img.src = url;
+          preview.appendChild(img);
+        }
+      }
+    });
+
+    document.getElementById("publish").addEventListener("click", async () => {
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+      if (!title || !content) return alert("Title and content are required");
+
+      const { error } = await supabaseClient.from("posts").insert({
+        title,
+        content,
+        images: uploadedFiles
+      });
+
+      if (error) {
+        alert("Failed to save post: " + error.message);
+      } else {
+        alert("Post published!");
+        location.reload();
+      }
+    });
+
+    async function loadPosts() {
+      const { data, error } = await supabaseClient.from("posts").select("*").order("created_at", { ascending: false });
+      if (error) return alert("Failed to load posts: " + error.message);
+
+      const container = document.getElementById("post-container");
+      data.forEach(post => {
+        const div = document.createElement("div");
+        div.className = "post";
+        div.innerHTML = `
+          <h3>${post.title}</h3>
+          <p>${post.content}</p>
+          ${post.images.map(url => `<img src="${url}" alt="image">`).join("")}
+        `;
+        container.appendChild(div);
+      });
     }
 
-    container.innerHTML = "";
-    sortedPosts.forEach(post => container.appendChild(post));
-}
-</script>
-
-
-
-    {% endblock %}
+    loadPosts();
+  </script>
+</body>
+</html>
+{% endblock %}
