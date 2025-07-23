@@ -13,7 +13,7 @@ eleventyNavigation:
   <STYLE>
     img {max-width: 100%; height: auto;padding: 0px; margin: 0px;}
     body {padding: 0px; margin: 0px;}
-  </STYLE>>
+  </STYLE>
 
   
     <!-- Script for Netlify Identity -->
@@ -39,32 +39,69 @@ eleventyNavigation:
 {% block body %}
 
 
-   
 <div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
-    <!--Main content -->
+    <!-- Main content -->
     <div class="main-content">
-        <!-- ============================================ -->
-        <!--                 Blog Articles                -->
-        <!-- ============================================ -->
+        <!-- Sort Buttons -->
+        <div style="margin-bottom: 20px;" class="sort-buttons">
+            <button onclick="sortPosts('desc')">Newest First</button>
+            <button onclick="sortPosts('asc')">Oldest First</button>
+            <button onclick="sortPosts('random')">Random</button>
+        </div>
 
+        <!-- Blog Articles -->
         {% if collections.post | length == 0 %}
             <h1>No Recent Posts</h1>
         {% else %}
-            {%- for post in collections.post | reverse -%}
-              
-                        <img
-                            src="{{ post.data.image }}"
-                            alt="{{ post.data.imageAlt }}"
-                            width="795"
-                            height="400"
-                            decoding="async" />
-                   
-                            {{ post.templateContent | safe }}
-                
-            {%- endfor -%}
+            <div id="post-container">
+                {% for post in collections.post %}
+                    <article class="recent-articles" data-date="{{ post.date }}">
+                        <picture class="blog-mainImage">
+                            <img
+                                src="{{ post.data.image }}"
+                                alt="{{ post.data.imageAlt }}"
+                                width="795"
+                                height="400"
+                                decoding="async" />
+                        </picture>
+
+                        <div class="article-group">
+                            <h2 class="blog-h1">{{ post.data.title }}</h2>
+                            <div class="blog-authorGroup">
+                                <span class="blog-date">{{ post.date | postDate }}</span>
+                            </div>
+                            <div class="blog-content">
+                                {{ post.templateContent | safe }}
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
         {% endif %}
     </div>
 </div>
+
+<!-- Sorting Script -->
+<script>
+function sortPosts(order) {
+    const container = document.getElementById("post-container");
+    const posts = Array.from(container.children);
+
+    let sortedPosts;
+
+    if (order === "asc") {
+        sortedPosts = posts.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+    } else if (order === "desc") {
+        sortedPosts = posts.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+    } else if (order === "random") {
+        sortedPosts = posts.sort(() => Math.random() - 0.5);
+    }
+
+    container.innerHTML = "";
+    sortedPosts.forEach(post => container.appendChild(post));
+}
+</script>
+
 
 
     {% endblock %}
