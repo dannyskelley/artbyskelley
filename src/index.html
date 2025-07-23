@@ -33,14 +33,32 @@ eleventyNavigation:
 <main id="main">
   <div class="main-content-wrapper" style="padding-bottom:30px">
     <div class="main-content">
-      <div class="drop-zone" id="drop-zone">📁 Drag image files here to create a new post</div>
-      <div class="preview" id="preview"></div>
-      <input type="text" id="title" placeholder="Post Title" style="width:100%; padding:8px; margin-bottom:10px;" />
-      <textarea id="content" placeholder="Write your post..." style="width:100%; height:150px; padding:8px;"></textarea>
-      <button id="publish">Publish Post</button>
-      <hr>
-      <h2>Saved Posts</h2>
-      <div id="post-container"></div>
+      <h2>Sign Up or Log In</h2>
+      <input type="email" id="email" placeholder="Enter your email" style="width:100%; padding:8px; margin-bottom:10px;">
+      <button id="auth-btn">Send Magic Link</button>
+      <div id="auth-status" style="margin: 10px 0; color: green;"></div>
+
+      <div id="user-ui" style="display: none;">
+        <div class="drop-zone" id="drop-zone">📁 Drag image files here to create a new post</div>
+        <div class="preview" id="preview"></div>
+        <input type="text" id="title" placeholder="Post Title" style="width:100%; padding:8px; margin-bottom:10px;" />
+        <textarea id="content" placeholder="Write your post..." style="width:100%; height:150px; padding:8px;"></textarea>
+        <button id="publish">Publish Post</button>
+
+        <div style="margin:20px 0">
+          <strong>Your Shareable Page URL:</strong>
+          <div id="share-url"></div>
+        </div>
+
+        <div class="sort-buttons" style="margin-bottom:20px">
+          <button onclick='sortPosts("desc")'>Newest First</button>
+          <button onclick='sortPosts("asc")'>Oldest First</button>
+          <button onclick='sortPosts("random")'>Random</button>
+        </div>
+
+        <h2>Your Uploaded Posts</h2>
+        <div id="post-container"></div>
+      </div>
     </div>
   </div>
 </main>
@@ -52,84 +70,104 @@ eleventyNavigation:
   const { createClient } = supabase;
   const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  document.addEventListener("DOMContentLoaded", () => {
-    let dropZone = document.getElementById("drop-zone");
-    let preview = document.getElementById("preview");
-    let postContainer = document.getElementById("post-container");
-    let uploadedFiles = [];
+  let sessionUser = null;
+  let uploadedFiles = [];
 
-    if (!dropZone) return;
+  function sortPosts(order) {
+    const container = document.getElementById("post-container");
+    const posts = Array.from(container.children);
+    let sorted;
+    if (order === "asc") sorted = posts.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+    else if (order === "desc") sorted = posts.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+    else sorted = posts.sort(() => Math.random() - 0.5);
+    container.innerHTML = "";
+    sorted.forEach(p => container.appendChild(p));
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    const emailInput = document.getElementById("email");
+    const authBtn = document.getElementById("auth-btn");
+    const authStatus = document.getElementById("auth-status");
+    const userUI = document.getElementById("user-ui");
+
+    authBtn.addEventListener("click", async () => {
+      const email = emailInput.value.trim();
+      if (!email) return alert("Please enter an email");
+      const { error } = await supabaseClient.auth.signInWithOtp({ email });
+      if (error) {
+        authStatus.textContent = "Error: " + error.message;
+        authStatus.style.color = "red";
+      } else {
+        authStatus.textContent = "Magic link sent! Check your email.";
+        authStatus.style.color = "green";
+      }
+    });
+
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    sessionUser = session?.user || null;
+
+    if (!sessionUser) return;
+    userUI.style.display = "block";
+    document.getElementById("share-url").textContent = `${window.location.origin}/?user=${sessionUser.id}`;
+
+    const dropZone = document.getElementById("drop-zone");
+    const preview = document.getElementById("preview");
+    const postContainer = document.getElementById("post-container");
 
     dropZone.addEventListener("dragover", e => {
       e.preventDefault();
       dropZone.classList.add("dragover");
     });
-
-    dropZone.addEventListener("dragleave", () => {
-      dropZone.classList.remove("dragover");
-    });
-
+    dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
     dropZone.addEventListener("drop", async e => {
       e.preventDefault();
       dropZone.classList.remove("dragover");
-
       const files = Array.from(e.dataTransfer.items)
-        .filter(item => item.kind === "file")
-        .map(item => item.getAsFile())
-        .filter(file => file && file.type.startsWith("image/"));
-
+        .filter(i => i.kind === "file")
+        .map(i => i.getAsFile())
+        .filter(f => f && f.type.startsWith("image/"));
       for (const file of files) {
-        const filePath = `posts/${Date.now()}-${file.name}`;
-        const { data, error } = await supabaseClient.storage.from(BUCKET).upload(filePath, file);
-
-        if (error) {
-          alert("Upload failed: " + error.message);
-        } else {
-          const url = supabaseClient.storage.from(BUCKET).getPublicUrl(data.path).data.publicUrl;
-          uploadedFiles.push(url);
-          const img = document.createElement("img");
-          img.src = url;
-          preview.appendChild(img);
-        }
+        const path = `posts/${Date.now()}-${file.name}`;
+        const { data, error } = await supabaseClient.storage.from(BUCKET).upload(path, file);
+        if (error) return alert("Upload failed: " + error.message);
+        const url = supabaseClient.storage.from(BUCKET).getPublicUrl(data.path).data.publicUrl;
+        uploadedFiles.push(url);
+        const img = document.createElement("img");
+        img.src = url;
+        preview.appendChild(img);
       }
     });
 
     document.getElementById("publish")?.addEventListener("click", async () => {
       const title = document.getElementById("title").value.trim();
       const content = document.getElementById("content").value.trim();
-
       if (!title || !content) return alert("Title and content required");
-
+      if (!sessionUser) return alert("Please log in first.");
       const { error } = await supabaseClient.from("posts").insert({
         title,
         content,
-        images: uploadedFiles
+        images: uploadedFiles,
+        user_id: sessionUser.id
       });
-
-      if (error) {
-        alert("Error saving post: " + error.message);
-      } else {
-        alert("Post published!");
-        location.reload();
-      }
+      if (error) return alert("Error saving post: " + error.message);
+      alert("Post published!");
+      location.reload();
     });
 
     async function loadPosts() {
-      const { data, error } = await supabaseClient.from("posts").select("*").order("created_at", { ascending: false });
+      const { data, error } = await supabaseClient.from("posts")
+        .select("*")
+        .eq("user_id", sessionUser.id)
+        .order("created_at", { ascending: false });
       if (error) return alert("Error loading posts: " + error.message);
-
       data.forEach(post => {
         const div = document.createElement("div");
         div.className = "post";
-        div.innerHTML = `
-          <h3>${post.title}</h3>
-          <p>${post.content}</p>
-          ${post.images.map(url => `<img src="${url}" alt="">`).join("")}
-        `;
-        postContainer?.appendChild(div);
+        div.dataset.date = post.created_at;
+        div.innerHTML = `<h3>${post.title}</h3><p>${post.content}</p>${post.images.map(u => `<img src="${u}" />`).join("")}`;
+        postContainer.appendChild(div);
       });
     }
-
     loadPosts();
   });
 </script>
