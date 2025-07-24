@@ -1,8 +1,8 @@
 ---
-title: carv
+title: pic
 description: aaa
 author: aaa
-date: 2025-07-24T08:01:00.000-04:00
+date: 2025-07-24T08:41:00.000-04:00
 tags:
   - post
 image: /assets/images/blog/fd100994.jpg
