@@ -12,7 +12,7 @@ imageAlt: aaa
 
 ![](/assets/images/blog/53278-2x.jpg)
 
-![](/assets/images/blog/299075-2x.jpeg)
+
 
 ![](/assets/images/blog/magritte_la-lampe-philosophique_1936-1.jpeg)
 
