@@ -57,7 +57,7 @@ eleventyNavigation:
                 {% for post in collections.post %}
                     <article class="recent-articles" data-date="{{ post.date }}">
                         <picture class="blog-mainImage">
-                            <img
+                            <img class="aos-init aos-animate" data-aos="fade-up"
                                 src="{{ post.data.image }}"
                                 alt="{{ post.data.imageAlt }}"
                                 width="795"
@@ -70,7 +70,7 @@ eleventyNavigation:
                             <div class="blog-authorGroup">
                                 <span class="blog-date">{{ post.date | postDate }}</span>
                             </div>-->
-                            <div class="blog-content">
+                            <div class="blog-content os-init aos-animate" data-aos="fade-up">
                                 {{ post.templateContent | safe }}
                             </div>
                         </div>
