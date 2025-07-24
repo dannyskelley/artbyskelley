@@ -17,7 +17,17 @@ eleventyNavigation:
     body {
       margin: 0;
       padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: normal;
+      background: white;
+      color: black;
     }
+
+    body.dark-mode {
+      background: black;
+      color: white;
+    }
+
     img {
       max-width: 100%;
       height: auto;
@@ -33,12 +43,24 @@ eleventyNavigation:
       border: none;
       padding: 10px 20px;
       font-size: 1rem;
+      font-weight: normal;
       border-radius: 999px;
       cursor: pointer;
       z-index: 9999;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       text-decoration: none;
       transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    body.dark-mode .float-button {
+      background: white;
+      color: black;
+    }
+
+    #darkmode-toggle {
+      top: 20px;
+      right: 20px;
+      bottom: auto;
     }
 
     #deeper-button {
@@ -80,6 +102,9 @@ eleventyNavigation:
 {% endblock %}
 
 {% block body %}
+
+<!-- Dark Mode Toggle -->
+<a id="darkmode-toggle" class="float-button">🌓</a>
 
 <!-- Floating Buttons -->
 <a id="top-button" class="float-button">Top</a>
@@ -125,15 +150,19 @@ eleventyNavigation:
   const prevBtn = document.getElementById('previous-button');
   const topBtn = document.getElementById('top-button');
   const bottomBtn = document.getElementById('bottom-button');
+  const darkToggleBtn = document.getElementById('darkmode-toggle');
   const posts = document.querySelectorAll('article[id^="post-"]');
+
   let currentIndex = 0;
 
   function shootBlackConfetti() {
     confetti({
-      particleCount: 100,
-      spread: 60,
+      particleCount: 150,
+      spread: 70,
       origin: { y: 0.2 },
-      colors: ['#000000']
+      colors: ['#000000'],
+      ticks: 18,
+      shapes: ['circle']
     });
   }
 
@@ -144,7 +173,6 @@ eleventyNavigation:
   }
 
   function updateButtonVisibility() {
-    // Top Button
     if (window.scrollY > 300) {
       topBtn.style.opacity = '1';
       topBtn.style.visibility = 'visible';
@@ -153,7 +181,6 @@ eleventyNavigation:
       topBtn.style.visibility = 'hidden';
     }
 
-    // Bottom Button
     const scrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
     if (scrollBottom) {
       bottomBtn.style.opacity = '0';
@@ -163,7 +190,6 @@ eleventyNavigation:
       bottomBtn.style.visibility = 'visible';
     }
 
-    // Previous Button
     if (currentIndex > 0) {
       prevBtn.style.opacity = '1';
       prevBtn.style.visibility = 'visible';
@@ -203,6 +229,11 @@ eleventyNavigation:
     currentIndex = posts.length - 1;
     document.getElementById('page-bottom').scrollIntoView({ behavior: 'smooth' });
     updateButtonVisibility();
+  });
+
+  darkToggleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.body.classList.toggle('dark-mode');
   });
 
   window.addEventListener('scroll', updateButtonVisibility);
