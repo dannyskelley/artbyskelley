@@ -16,7 +16,7 @@ imageAlt: aaa
 
 ![](/assets/images/blog/621057_19e5e9ee282b366536d487ef5760d461.jpg)
 
-![](/assets/images/blog/d7hftxdivxxvm.cloudfront.webp)
+
 
 ![](/assets/images/blog/guyhepner-kenny-scharf-vring-2021.webp)
 
@@ -30,14 +30,14 @@ imageAlt: aaa
 
 ![](/assets/images/blog/places-pleasezzz.jpg)
 
-![]()
+![](<>)
 
-![]()
+![](<>)
 
-![]()
+![](<>)
 
-![]()
+![](<>)
 
-![]()
+![](<>)
 
-![]()
+![](<>)
