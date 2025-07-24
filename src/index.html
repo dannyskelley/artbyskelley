@@ -14,18 +14,20 @@ eleventyNavigation:
     html {
       scroll-behavior: smooth;
     }
+    body {
+      margin: 0;
+      padding: 0;
+    }
     img {
       max-width: 100%;
       height: auto;
       padding: 0;
       margin: 0;
     }
-    body {
-      padding: 0;
-      margin: 0;
-    }
+
     .float-button {
       position: fixed;
+      right: 20px;
       background: black;
       color: white;
       border: none;
@@ -33,23 +35,32 @@ eleventyNavigation:
       font-size: 1rem;
       border-radius: 999px;
       cursor: pointer;
-      z-index: 999;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 9999;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       text-decoration: none;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
     }
+
     #deeper-button {
-      top: 20px;
-      right: 20px;
-    }
-    #top-button {
-      bottom: 80px;
-      left: 20px;
-      display: none;
-    }
-    #bottom-button {
       bottom: 20px;
-      right: 20px;
+    }
+
+    #previous-button {
+      bottom: 70px;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #bottom-button {
+      bottom: 120px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #top-button {
+      bottom: 170px;
+      opacity: 0;
+      visibility: hidden;
     }
   </style>
 
@@ -71,9 +82,10 @@ eleventyNavigation:
 {% block body %}
 
 <!-- Floating Buttons -->
-<a id="deeper-button" class="float-button">Deeper</a>
 <a id="top-button" class="float-button">Top</a>
 <a id="bottom-button" class="float-button">Bottom</a>
+<a id="previous-button" class="float-button">Previous</a>
+<a id="deeper-button" class="float-button">Deeper</a>
 
 <div class="blog-container main-content-wrapper" style="padding-bottom: 100px;">
   <div class="main-content" id="page-top">
@@ -110,6 +122,7 @@ eleventyNavigation:
 
 <script>
   const deeperBtn = document.getElementById('deeper-button');
+  const prevBtn = document.getElementById('previous-button');
   const topBtn = document.getElementById('top-button');
   const bottomBtn = document.getElementById('bottom-button');
   const posts = document.querySelectorAll('article[id^="post-"]');
@@ -120,53 +133,80 @@ eleventyNavigation:
       particleCount: 100,
       spread: 60,
       origin: { y: 0.2 },
-      colors: ['#000000'],
+      colors: ['#000000']
     });
+  }
+
+  function scrollToPost(index) {
+    if (index >= 0 && index < posts.length) {
+      posts[index].scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function updateButtonVisibility() {
+    // Top Button
+    if (window.scrollY > 300) {
+      topBtn.style.opacity = '1';
+      topBtn.style.visibility = 'visible';
+    } else {
+      topBtn.style.opacity = '0';
+      topBtn.style.visibility = 'hidden';
+    }
+
+    // Bottom Button
+    const scrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
+    if (scrollBottom) {
+      bottomBtn.style.opacity = '0';
+      bottomBtn.style.visibility = 'hidden';
+    } else {
+      bottomBtn.style.opacity = '1';
+      bottomBtn.style.visibility = 'visible';
+    }
+
+    // Previous Button
+    if (currentIndex > 0) {
+      prevBtn.style.opacity = '1';
+      prevBtn.style.visibility = 'visible';
+    } else {
+      prevBtn.style.opacity = '0';
+      prevBtn.style.visibility = 'hidden';
+    }
   }
 
   deeperBtn.addEventListener('click', (e) => {
     e.preventDefault();
     shootBlackConfetti();
     currentIndex++;
-    if (currentIndex >= posts.length) {
-      currentIndex = 0;
+    if (currentIndex >= posts.length) currentIndex = 0;
+    scrollToPost(currentIndex);
+    updateButtonVisibility();
+  });
+
+  prevBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentIndex > 0) {
+      currentIndex--;
+      scrollToPost(currentIndex);
+      updateButtonVisibility();
     }
-    posts[currentIndex].scrollIntoView({ behavior: 'smooth' });
   });
 
   topBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    currentIndex = 0;
     document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' });
+    updateButtonVisibility();
   });
 
   bottomBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    currentIndex = posts.length - 1;
     document.getElementById('page-bottom').scrollIntoView({ behavior: 'smooth' });
+    updateButtonVisibility();
   });
 
-  // Toggle top/bottom button visibility
-  function handleScroll() {
-    const scrollTop = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const bodyHeight = document.body.offsetHeight;
-
-    // Show "Top" button after scrolling 400px
-    if (scrollTop > 400) {
-      topBtn.style.display = 'block';
-    } else {
-      topBtn.style.display = 'none';
-    }
-
-    // Hide "Bottom" button if at bottom
-    if (scrollTop + windowHeight >= bodyHeight - 10) {
-      bottomBtn.style.display = 'none';
-    } else {
-      bottomBtn.style.display = 'block';
-    }
-  }
-
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('load', handleScroll);
+  window.addEventListener('scroll', updateButtonVisibility);
+  window.addEventListener('load', updateButtonVisibility);
 </script>
 
 {% endblock %}
