@@ -8,9 +8,9 @@ tags:
 image: /assets/images/blog/2019_hgk_15620_0427_000-tomoo_gokita_think_of_me_with_kindness011017-.jpg
 imageAlt: aaa
 ---
-![](/assets/images/blog/tg-slash-and-thrust-102-by-78-in.-acrylic-on-linen-2008_0.jpg)
 
-aa
+
+
 
 ![](/assets/images/blog/02-1_2_hamactor_detail.jpg)
 
@@ -30,7 +30,7 @@ aa
 
 ![](/assets/images/blog/h0046-l388232599.jpg)
 
-![](/assets/images/blog/images.jpg)
+
 
 ![](/assets/images/blog/tg_93_350dpi.jpg)
 
