@@ -24,20 +24,32 @@ eleventyNavigation:
       padding: 0;
       margin: 0;
     }
-    #deeper-button {
+    .float-button {
       position: fixed;
-      top: 20px;
-      right: 20px;
       background: black;
       color: white;
       border: none;
-      padding: 10px 24px;
+      padding: 10px 20px;
       font-size: 1rem;
       border-radius: 999px;
-      z-index: 1000;
       cursor: pointer;
-      text-decoration: none;
+      z-index: 999;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+    #deeper-button {
+      top: 20px;
+      right: 20px;
+    }
+    #top-button {
+      bottom: 80px;
+      left: 20px;
+      display: none;
+    }
+    #bottom-button {
+      bottom: 20px;
+      right: 20px;
     }
   </style>
 
@@ -58,11 +70,13 @@ eleventyNavigation:
 
 {% block body %}
 
-<!-- Floating Deeper Button -->
-<a id="deeper-button">Deeper</a>
+<!-- Floating Buttons -->
+<a id="deeper-button" class="float-button">Deeper</a>
+<a id="top-button" class="float-button">Top</a>
+<a id="bottom-button" class="float-button">Bottom</a>
 
-<div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
-  <div class="main-content">
+<div class="blog-container main-content-wrapper" style="padding-bottom: 100px;">
+  <div class="main-content" id="page-top">
     {% if collections.post | length == 0 %}
       <h1>No Recent Posts</h1>
     {% else %}
@@ -90,11 +104,14 @@ eleventyNavigation:
         {% endfor %}
       </div>
     {% endif %}
+    <div id="page-bottom" style="height: 1px;"></div>
   </div>
 </div>
 
 <script>
   const deeperBtn = document.getElementById('deeper-button');
+  const topBtn = document.getElementById('top-button');
+  const bottomBtn = document.getElementById('bottom-button');
   const posts = document.querySelectorAll('article[id^="post-"]');
   let currentIndex = 0;
 
@@ -110,14 +127,46 @@ eleventyNavigation:
   deeperBtn.addEventListener('click', (e) => {
     e.preventDefault();
     shootBlackConfetti();
-
     currentIndex++;
-    if (currentIndex < posts.length) {
-      posts[currentIndex].scrollIntoView({ behavior: 'smooth' });
-    } else {
-      currentIndex = posts.length - 1;
+    if (currentIndex >= posts.length) {
+      currentIndex = 0;
     }
+    posts[currentIndex].scrollIntoView({ behavior: 'smooth' });
   });
+
+  topBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  bottomBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('page-bottom').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Toggle top/bottom button visibility
+  function handleScroll() {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+
+    // Show "Top" button after scrolling 400px
+    if (scrollTop > 400) {
+      topBtn.style.display = 'block';
+    } else {
+      topBtn.style.display = 'none';
+    }
+
+    // Hide "Bottom" button if at bottom
+    if (scrollTop + windowHeight >= bodyHeight - 10) {
+      bottomBtn.style.display = 'none';
+    } else {
+      bottomBtn.style.display = 'block';
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('load', handleScroll);
 </script>
 
 {% endblock %}
