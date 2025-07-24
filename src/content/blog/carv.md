@@ -8,7 +8,7 @@ tags:
 image: /assets/images/blog/caravaggio-david-with-the-head-of-goliath-vienna.jpg
 imageAlt: aaa
 ---
-![](/assets/images/blog/_89194870_caravaggioap.jpg)
+
 
 ![](/assets/images/blog/caravaggio-italian-baroque-master-1.jpg)
 
@@ -26,33 +26,6 @@ imageAlt: aaa
 
 ![](/assets/images/blog/the_inspiration_of_saint_matthew_by_caravaggio.jpg)
 
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
-
-![]()
 
 
 
@@ -74,10 +47,17 @@ imageAlt: aaa
 
 
 
-![](<>)
 
-![](<>)
 
-![](<>)
+
+
+
+
+
+
+
+
+
+
 
 ![](<>)

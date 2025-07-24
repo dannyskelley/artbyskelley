@@ -8,12 +8,6 @@ tags:
 image: /assets/images/blog/image.webp
 imageAlt: aaa
 ---
-
-
-
-
-
-
 ![](/assets/images/blog/68215.jpg)
 
 ![](/assets/images/blog/ernst-la-joie-de-vivre-1936-38.1-x-54.6-cm-cat-2265.jpeg)
@@ -29,21 +23,3 @@ imageAlt: aaa
 ![](/assets/images/blog/max-ernst-the-temptation-of-st.-anthony.jpg)
 
 ![](/assets/images/blog/s-l1200.jpg)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
