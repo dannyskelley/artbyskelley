@@ -22,6 +22,18 @@ imageAlt: aaa
 
 ![](/assets/images/blog/rene_magritte_la_geante_ii_lithograph_1950_28.25x22.25__1_800__20.webp)
 
-
-
 ![](<>)
+
+
+
+![]()
+
+![]()
+
+![](/assets/images/blog/rene-magritte-le-double.jpg)
+
+![](/assets/images/blog/sothebys-md.brightspotcdn.jpg)
+
+![](/assets/images/blog/53148-2x.jpg)
+
+![](/assets/images/blog/01-rene-magritte-face-of-genius-1926-27-58b5e9f23df78cdcd8002d75.jpg)
