@@ -10,98 +10,114 @@ eleventyNavigation:
 {% extends "layouts/base.html" %}
 
 {% block head %}
-  <STYLE>
-    img {max-width: 100%; height: auto;padding: 0px; margin: 0px;}
-    body {padding: 0px; margin: 0px;}
-  </STYLE>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    #deeper-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: black;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      border-radius: 999px;
+      z-index: 1000;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+  </style>
 
-  
-    <!-- Script for Netlify Identity -->
-    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script defer>
-        if (window.netlifyIdentity) {
-            window
-                .netlifyIdentity
-                .on('init', (user) => {
-                    if (!user) {
-                        window
-                            .netlifyIdentity
-                            .on('login', () => {
-                                document.location.href = '/admin/';
-                            });
-                    }
-                });
+  <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script defer>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', (user) => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/';
+          });
         }
-    </script>
-
+      });
+    }
+  </script>
 {% endblock %}
 
 {% block body %}
 
+<!-- Floating Deeper Button -->
+<a id="deeper-button">Deeper</a>
 
 <div class="blog-container main-content-wrapper" style="padding-bottom: 30px;">
-    <!-- Main content -->
-    <div class="main-content">
-        <!-- Sort Buttons -->
-        <div style="margin-bottom: 20px;" class="sort-buttons">
-            <button onclick="sortPosts('desc')">Newest First</button>
-            <button onclick="sortPosts('asc')">Oldest First</button>
-            <button onclick="sortPosts('random')">Random</button>
-        </div>
-
-        <!-- Blog Articles -->
-        {% if collections.post | length == 0 %}
-            <h1>No Recent Posts</h1>
-        {% else %}
-            <div id="post-container">
-                {% for post in collections.post %}
-                    <article class="recent-articles" data-date="{{ post.date }}">
-                        <picture class="blog-mainImage">
-                            <img class="aos-init aos-animate" data-aos="fade-up"
-                                src="{{ post.data.image }}"
-                                alt="{{ post.data.imageAlt }}"
-                                width="795"
-                                height="400"
-                                decoding="async" />
-                        </picture>
-
-                        <div class="article-group">
-                            <!--<h2 class="blog-h1">{{ post.data.title }}</h2>
-                            <div class="blog-authorGroup">
-                                <span class="blog-date">{{ post.date | postDate }}</span>
-                            </div>-->
-                            <div class="blog-content os-init aos-animate" data-aos="fade-up">
-                                {{ post.templateContent | safe }}
-                            </div>
-                        </div>
-                    </article>
-                {% endfor %}
+  <div class="main-content">
+    {% if collections.post | length == 0 %}
+      <h1>No Recent Posts</h1>
+    {% else %}
+      <div id="post-container">
+        {% for post in collections.post | reverse %}
+          <article class="recent-articles" id="post-{{ loop.index }}">
+            <picture class="blog-mainImage">
+              <img
+                class="aos-init aos-animate"
+                data-aos="fade-up"
+                src="{{ post.data.image }}"
+                alt="{{ post.data.imageAlt }}"
+                width="795"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="article-group">
+              <div class="blog-content os-init aos-animate" data-aos="fade-up">
+                {{ post.templateContent | safe }}
+              </div>
             </div>
-        {% endif %}
-    </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 </div>
 
-<!-- Sorting Script -->
 <script>
-function sortPosts(order) {
-    const container = document.getElementById("post-container");
-    const posts = Array.from(container.children);
+  const deeperBtn = document.getElementById('deeper-button');
+  const posts = document.querySelectorAll('article[id^="post-"]');
+  let currentIndex = 0;
 
-    let sortedPosts;
+  function shootBlackConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 60,
+      origin: { y: 0.2 },
+      colors: ['#000000'],
+    });
+  }
 
-    if (order === "asc") {
-        sortedPosts = posts.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
-    } else if (order === "desc") {
-        sortedPosts = posts.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
-    } else if (order === "random") {
-        sortedPosts = posts.sort(() => Math.random() - 0.5);
+  deeperBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    shootBlackConfetti();
+
+    currentIndex++;
+    if (currentIndex < posts.length) {
+      posts[currentIndex].scrollIntoView({ behavior: 'smooth' });
+    } else {
+      currentIndex = posts.length - 1;
     }
-
-    container.innerHTML = "";
-    sortedPosts.forEach(post => container.appendChild(post));
-}
+  });
 </script>
 
-
-
-    {% endblock %}
+{% endblock %}
