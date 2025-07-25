@@ -31,5 +31,3 @@ imageAlt: aaa
 ![](/assets/images/blog/pretty-unrealisticdavid-choe-2010.jpg)
 
 ![](/assets/images/blog/rhtw6wmr6zf71.jpg)
-
-![](/assets/images/blog/slow-jamsdavid-choe-1996.jpg)
