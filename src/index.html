@@ -34,6 +34,28 @@ eleventyNavigation:
       height: auto;
       padding: 0;
       margin: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      background-color: #f0f0f0;
+    }
+
+    img.loaded {
+      opacity: 1;
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
     }
 
     .float-button {
@@ -71,6 +93,18 @@ eleventyNavigation:
       opacity: 0;
       visibility: hidden;
     }
+
+    #preloader {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: white;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-family: sans-serif;
+    }
   </style>
 
   <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -89,6 +123,9 @@ eleventyNavigation:
 {% endblock %}
 
 {% block body %}
+
+<!-- Optional Preloader -->
+<div id="preloader">Loading...</div>
 
 <!-- Floating Button Stack -->
 <div class="button-stack">
@@ -131,15 +168,15 @@ eleventyNavigation:
   </div>
 </div>
 
-<!-- Scroll Script -->
+<!-- Script for scrolling, confetti, and loaders -->
 <script>
   const deeperBtn = document.getElementById('deeper-button');
   const prevBtn = document.getElementById('previous-button');
   const topBtn = document.getElementById('top-button');
   const bottomBtn = document.getElementById('bottom-button');
   const darkToggleBtn = document.getElementById('darkmode-toggle');
-  const allImages = document.querySelectorAll('img');
 
+  let allImages = [];
   let imageIndex = -1;
 
   function shootBlackConfetti() {
@@ -208,7 +245,34 @@ eleventyNavigation:
   });
 
   window.addEventListener('scroll', updateButtonVisibility);
-  window.addEventListener('load', updateButtonVisibility);
+
+  window.addEventListener('load', () => {
+    // Fade in images when they load
+    allImages = Array.from(document.querySelectorAll('img'));
+
+    allImages.forEach(img => {
+      img.classList.add('skeleton');
+      if (img.complete) {
+        img.classList.remove('skeleton');
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => {
+          img.classList.remove('skeleton');
+          img.classList.add('loaded');
+        });
+      }
+    });
+
+    updateButtonVisibility();
+
+    // Hide preloader
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+      preloader.style.transition = 'opacity 0.4s ease';
+      preloader.style.opacity = '0';
+      setTimeout(() => preloader.remove(), 400);
+    }
+  });
 </script>
 
 {% endblock %}
