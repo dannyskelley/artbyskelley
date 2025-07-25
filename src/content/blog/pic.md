@@ -1,5 +1,5 @@
 ---
-title: pic
+title: tanning
 description: aaa
 author: aaa
 date: 2025-07-25T06:50:00.000-04:00
