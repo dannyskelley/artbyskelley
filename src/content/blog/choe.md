@@ -10,18 +10,6 @@ imageAlt: aaa
 ---
 ![](/assets/images/blog/12ec6bdb29ccd4b502b3f7f2dee0366d.jpg)
 
-![]()
-
-![]()
-
-![](/assets/images/blog/18b8f483144f8281a6265db3ae3f9412.jpg)
-
-![](/assets/images/blog/610zeosjyll._ac_sl1500_.jpg)
-
-![](/assets/images/blog/2022_nyr_21652_0003_000-mad_dog_jones_silly_simons_psilocybin025743-.jpg)
-
-![](/assets/images/blog/2123f5a049afe2852407c2fb55dac5dd.jpg)
-
 ![](/assets/images/blog/14586325-d865-4158-a64c-61e0820137fa.jpeg)
 
 ![](/assets/images/blog/answers-to-questions-with-no-purpose-or-sensedavid-choe-2010.jpg)
