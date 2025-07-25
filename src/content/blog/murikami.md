@@ -10,8 +10,6 @@ imageAlt: aaa
 ---
 ![](/assets/images/blog/screenshot-2023-06-09-at-12.webp)
 
-
-
 ![](/assets/images/blog/new-featured-image-1200-x-675-5-min_11zon.webp)
 
 ![](/assets/images/blog/share_image-d9aec0df-8c64-445d-8b24-a9789f7c223f.jpg)
@@ -25,5 +23,3 @@ imageAlt: aaa
 ![](/assets/images/blog/lots-lots-of-kaikai-and-kiki-2009_4x3.jpg)
 
 ![](/assets/images/blog/push-cover-takashi-murakami-numero-magazine-1.webp)
-
-aa
