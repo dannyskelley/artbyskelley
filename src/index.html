@@ -14,6 +14,7 @@ eleventyNavigation:
     html {
       scroll-behavior: smooth;
     }
+
     body {
       margin: 0;
       padding: 0;
@@ -36,8 +37,6 @@ eleventyNavigation:
     }
 
     .float-button {
-      position: fixed;
-      right: 20px;
       background: black;
       color: white;
       border: none;
@@ -46,7 +45,6 @@ eleventyNavigation:
       font-weight: normal;
       border-radius: 999px;
       cursor: pointer;
-      z-index: 9999;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       text-decoration: none;
       transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -57,28 +55,19 @@ eleventyNavigation:
       color: black;
     }
 
-    #darkmode-toggle {
-      top: 20px;
-      right: 20px;
-      bottom: auto;
-    }
-
-    #deeper-button {
-      bottom: 20px;
-    }
-
-    #previous-button {
+    .button-stack {
+      position: fixed;
       bottom: 70px;
-      opacity: 0;
-      visibility: hidden;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
     }
 
-    #bottom-button {
-      bottom: 120px;
-    }
-
-    #top-button {
-      bottom: 170px;
+    #top-button,
+    #previous-button {
       opacity: 0;
       visibility: hidden;
     }
@@ -101,12 +90,16 @@ eleventyNavigation:
 
 {% block body %}
 
-<a id="darkmode-toggle" class="float-button">🌓</a>
-<a id="top-button" class="float-button">Top</a>
-<a id="bottom-button" class="float-button">Bottom</a>
-<a id="previous-button" class="float-button">Previous</a>
-<a id="deeper-button" class="float-button">Deeper</a>
+<!-- Floating Button Stack -->
+<div class="button-stack">
+  <a id="darkmode-toggle" class="float-button">🌓</a>
+  <a id="top-button" class="float-button">Top</a>
+  <a id="bottom-button" class="float-button">Bottom</a>
+  <a id="previous-button" class="float-button">Previous</a>
+  <a id="deeper-button" class="float-button">Deeper</a>
+</div>
 
+<!-- Main Blog Content -->
 <div class="blog-container main-content-wrapper" style="padding-bottom: 100px;">
   <div class="main-content" id="page-top">
     {% if collections.post | length == 0 %}
@@ -121,7 +114,6 @@ eleventyNavigation:
                 data-aos="fade-up"
                 src="{{ post.data.image }}"
                 alt="{{ post.data.imageAlt }}"
-               
                 loading="lazy"
                 decoding="async"
               />
@@ -139,6 +131,7 @@ eleventyNavigation:
   </div>
 </div>
 
+<!-- Scroll Script -->
 <script>
   const deeperBtn = document.getElementById('deeper-button');
   const prevBtn = document.getElementById('previous-button');
