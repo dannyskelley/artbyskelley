@@ -75,8 +75,6 @@ eleventyNavigation:
 
     #bottom-button {
       bottom: 120px;
-      opacity: 1;
-      visibility: visible;
     }
 
     #top-button {
@@ -103,10 +101,7 @@ eleventyNavigation:
 
 {% block body %}
 
-<!-- Dark Mode Toggle -->
 <a id="darkmode-toggle" class="float-button">🌓</a>
-
-<!-- Floating Buttons -->
 <a id="top-button" class="float-button">Top</a>
 <a id="bottom-button" class="float-button">Bottom</a>
 <a id="previous-button" class="float-button">Previous</a>
@@ -151,11 +146,9 @@ eleventyNavigation:
   const topBtn = document.getElementById('top-button');
   const bottomBtn = document.getElementById('bottom-button');
   const darkToggleBtn = document.getElementById('darkmode-toggle');
-  const posts = document.querySelectorAll('article[id^="post-"]');
   const allImages = document.querySelectorAll('img');
 
-  let currentIndex = 0;
-  let imageIndex = 0;
+  let imageIndex = -1;
 
   function shootBlackConfetti() {
     confetti({
@@ -168,61 +161,43 @@ eleventyNavigation:
     });
   }
 
-  function scrollToPost(index) {
-    if (index >= 0 && index < posts.length) {
-      posts[index].scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
   function updateButtonVisibility() {
-    if (window.scrollY > 300) {
-      topBtn.style.opacity = '1';
-      topBtn.style.visibility = 'visible';
-    } else {
-      topBtn.style.opacity = '0';
-      topBtn.style.visibility = 'hidden';
-    }
+    topBtn.style.opacity = window.scrollY > 300 ? '1' : '0';
+    topBtn.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
 
-    const scrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
-    if (scrollBottom) {
-      bottomBtn.style.opacity = '0';
-      bottomBtn.style.visibility = 'hidden';
-    } else {
-      bottomBtn.style.opacity = '1';
-      bottomBtn.style.visibility = 'visible';
-    }
+    const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 10;
+    bottomBtn.style.opacity = atBottom ? '0' : '1';
+    bottomBtn.style.visibility = atBottom ? 'hidden' : 'visible';
 
-    if (currentIndex > 0) {
-      prevBtn.style.opacity = '1';
-      prevBtn.style.visibility = 'visible';
-    } else {
-      prevBtn.style.opacity = '0';
-      prevBtn.style.visibility = 'hidden';
-    }
+    prevBtn.style.opacity = imageIndex > 0 ? '1' : '0';
+    prevBtn.style.visibility = imageIndex > 0 ? 'visible' : 'hidden';
   }
 
   deeperBtn.addEventListener('click', (e) => {
     e.preventDefault();
     shootBlackConfetti();
 
-    imageIndex++;
-    if (imageIndex >= allImages.length) imageIndex = 0;
+    if (imageIndex < allImages.length - 1) {
+      imageIndex++;
+      allImages[imageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
-    allImages[imageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    updateButtonVisibility();
   });
 
   prevBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (currentIndex > 0) {
-      currentIndex--;
-      scrollToPost(currentIndex);
-      updateButtonVisibility();
+
+    if (imageIndex > 0) {
+      imageIndex--;
+      allImages[imageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
+    updateButtonVisibility();
   });
 
   topBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    currentIndex = 0;
     imageIndex = 0;
     document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' });
     updateButtonVisibility();
@@ -230,7 +205,7 @@ eleventyNavigation:
 
   bottomBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    currentIndex = posts.length - 1;
+    imageIndex = allImages.length - 1;
     document.getElementById('page-bottom').scrollIntoView({ behavior: 'smooth' });
     updateButtonVisibility();
   });
