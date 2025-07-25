@@ -14,15 +14,15 @@ imageAlt: aaa
 
 ![](/assets/images/blog/99197.jpg)
 
-![](/assets/images/blog/318787-2x.jpg)
+
 
 ![](/assets/images/blog/gchi04-ht4535-giorgio-de-chirico-afternoon-of-the-philosopher-1000x800.webp)
 
 ![](/assets/images/blog/giorgio_de_chirico_-_the_grand_metaphysician_il_gran_metafisico_1917.webp)
 
-![](/assets/images/blog/giorgio_de_chirico-hector_and_andromache.jpg)
 
-![](/assets/images/blog/giorgio_de_chirico-the_disquieting_muses-1918-obelisk-art-history.webp)
+
+
 
 ![](/assets/images/blog/giorgio-de-chirico-le-muse-inquietanti-9gah9.jpeg)
 
