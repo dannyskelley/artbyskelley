@@ -152,8 +152,10 @@ eleventyNavigation:
   const bottomBtn = document.getElementById('bottom-button');
   const darkToggleBtn = document.getElementById('darkmode-toggle');
   const posts = document.querySelectorAll('article[id^="post-"]');
+  const allImages = document.querySelectorAll('img');
 
   let currentIndex = 0;
+  let imageIndex = 0;
 
   function shootBlackConfetti() {
     confetti({
@@ -202,10 +204,11 @@ eleventyNavigation:
   deeperBtn.addEventListener('click', (e) => {
     e.preventDefault();
     shootBlackConfetti();
-    currentIndex++;
-    if (currentIndex >= posts.length) currentIndex = 0;
-    scrollToPost(currentIndex);
-    updateButtonVisibility();
+
+    imageIndex++;
+    if (imageIndex >= allImages.length) imageIndex = 0;
+
+    allImages[imageIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
   prevBtn.addEventListener('click', (e) => {
@@ -220,6 +223,7 @@ eleventyNavigation:
   topBtn.addEventListener('click', (e) => {
     e.preventDefault();
     currentIndex = 0;
+    imageIndex = 0;
     document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' });
     updateButtonVisibility();
   });
