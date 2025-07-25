@@ -2,7 +2,7 @@
 title: tomoo
 description: aaa
 author: aaa
-date: 2025-07-30T15:07:00.000-04:00
+date: 2025-07-21T07:03:00.000-04:00
 tags:
   - post
 image: /assets/images/blog/2019_hgk_15620_0427_000-tomoo_gokita_think_of_me_with_kindness011017-.jpg
