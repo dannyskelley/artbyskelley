@@ -5,7 +5,7 @@ author: aaa
 date: 2025-07-25T09:39:00.000-04:00
 tags:
   - post
-image: /assets/images/blog/zak-smith_things-i-drew-and-pinned-on-the-wall_aid281137.jpg
+image: /assets/images/blog/zak-3.jpg
 imageAlt: aaa
 ---
 ![](/assets/images/blog/1b-1.jpg)
