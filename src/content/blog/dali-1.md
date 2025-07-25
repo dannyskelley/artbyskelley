@@ -16,8 +16,6 @@ imageAlt: aaa
 
 ![](/assets/images/blog/621057_19e5e9ee282b366536d487ef5760d461.jpg)
 
-
-
 ![](/assets/images/blog/guyhepner-kenny-scharf-vring-2021.webp)
 
 ![](/assets/images/blog/kenny-scharf-furungle-orange.webp)
@@ -29,15 +27,3 @@ imageAlt: aaa
 ![](/assets/images/blog/sajippe-kraka-joujesh-screenprint-or-kenny-scharfproduct-type-1.webp)
 
 ![](/assets/images/blog/places-pleasezzz.jpg)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
-
-![](<>)
